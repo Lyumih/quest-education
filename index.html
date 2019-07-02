@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="css/quest-education.css">
+    <script src="js/lib/vue.js"></script>
     <title>Quest Education</title>
   
 
@@ -18,10 +19,19 @@
         <label for="quest-search">Начальное слово</label>
         <input type="text" name="" id="quest-search" />
       </div>
-
+<ul>Слова
+  <li v-for="word in words">{{word}}</li>
+</ul><ul>Граф
+  <li v-for="graph in graphs">{{graph}}</li>
+</ul>
       <!-- Таблица со словами -->
       <div>
-        <table></table>
+        <p>Таблица</p>
+        <table border="1px solid black">
+          <tr v-for="tr in graphTable">
+            <td v-for="td in tr">{{ td }}</td>
+          </tr>
+        </table>
       </div>
 
       <hr />
