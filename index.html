@@ -1,61 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="css/quest-education.css">
-    <script src="js/lib/vue.js"></script>
-    <title>Quest Education</title>
-  
 
-  </head>
-  <body>
-    <div id="app" class="container">
-      <!-- Заголовок -->
-      <h1>Q-Education</h1>
-      <!-- Поиск / начального слова -->
-      <div>
-        <label for="quest-search">Начальное слово</label>
-        <input type="text" name="" id="quest-search" />
-      </div>
-<ul>Слова
-  <li v-for="word in words">{{word}}</li>
-</ul><ul>Граф
-  <li v-for="graph in graphs">{{graph}}</li>
-</ul>
-      <!-- Таблица со словами -->
-      <div>
-        <p>Таблица</p>
-        <table border="1px solid black">
-          <tr v-for="tr in graphTable">
-            <td v-for="td in tr">{{ td }}</td>
-          </tr>
-        </table>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="css/quest-education.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-      <hr />
+  <script src="js/lib/vue.js"></script>
+  <title>Quest Education</title>
 
-      <!-- Пример 1 ячейки - закрытая ячейка -->
-      <h4>Пример 1 ячейки - закрытая ячейка</h4>
-      <div class="bordered">
-        <div>ООП</div>
-      </div>
-      <!-- Пример 1 ячейки - открытая ячейка -->
-      <h4>Пример 1 ячейки - открытая ячейка</h4>
-      <div class="bordered">
-        <div>ООП <button>Свернуть</button></div>
-        <div>
-        <p>Определение: ООП - объектно-орентированное программирование.</p>
-        <p>Статьи: <a href="#">Habr</a></p>
-        <p>Книги: <a href="#">Философия Java</a></p>
-        <p>Вопросы: 3 или 4 признака ООП?</p>
-        <p>Задачи: Создайте объект Car.</p>
-        <p>Решение задач: <pre>public class Car{}</pre></p>
-        </div>
-      </div>
+
+</head>
+
+<body>
+  <div id="app" class="container">
+    <!-- Заголовок -->
+    <h1>Q-Education</h1>
+    <h2>Вам нужно будет ввести начальное слово из мира Java. И дальше постараться разгадать его содержимое. Например, ввести слово ООП в колонку 3</h2>
+    <hr>
+    <!-- Поиск / начального слова -->
+    <div>
+      <h3 for="quest-search">Начальное слово</h3>
+      <input type="text" placeholder="Введи слово Java" id="quest-search" v-model="start" />
+    </div>
+    <!-- Таблица со словами -->
+    <div>
+      <h3>Таблица слов</h3>
+      <table class="table table-responsive">
+        <tr v-for="tr in graphTable">
+          <td v-for="id in tr">
+            <template v-if="getWord(id)">
+              <word-item :word="getWord(id)" :start="start"></word-item>
+            </template>
+          </td>
+        </tr>
+      </table>
     </div>
 
-    <script src="js/quest-education.js"></script>
-  </body>
+  </div>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+
+  <script src="js/constants.js"></script>
+  <script src="js/quest-education.js"></script>
+</body>
+
 </html>

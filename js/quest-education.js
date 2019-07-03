@@ -1,45 +1,71 @@
-let createWord = (id, word, opred, note, books, question, ex) => {
-  return { id, word, opred, note, books, question, ex };
-};
-
-const words = [
-  createWord(1, "Java"),
-  createWord(2, "Синтаксис"),
-  createWord(3, "ООП"),
-  createWord(4, "Лучшие практики")
-];
-
-const graphs = [
-  [1, 2, 3, 4],
-  [2, 7, 8],
-  [3, 9, 10, 11, 12],
-  [4, 13, 14],
-  [5, 15],
-  [6, 16]
-];
+Vue.component("word-item", {
+  props: ["word", "start"],
+  template: `
+  <div>
+  <template v-if="!done">
+    <span>{{ word.id }} </span><input v-model="search" :title="word.name" :id="'word-' + word.id">
+  </template>
+  <template v-if="done">
+  <div>
+    <p>Слово: {{word.name}}</p>
+    <p>Определение: {{ word.defenition }}</p>
+    <p>Описание: {{ word.note }}</p>
+  </div>
+  </template>
+  </div>`,
+  data() {
+    return {
+      search: "",
+    };
+  },
+  computed: {
+    done() {
+      if (
+        this.search.toLowerCase().trim() ==
+        this.word.name.toLowerCase().substr(0, this.word.name.length - 1)
+      ) {
+        return true;
+      }
+      if (this.start.toLowerCase() == this.word.name.toLowerCase())
+        return true;
+      return false
+    }
+  },
+});
 
 let app = new Vue({
   el: "#app",
   data: {
     words: words,
-    graphs: graphs
+    graphs: graphs,
+    table: tableExample,
+    start: ''
   },
   computed: {
     graphTable() {
-      let table = [];
-      this.words.forEach(word => {
-        let position = { tr: "2", td: "3" };
-        let line = table[2];
-        line.push(word.id);
-        table[2] = line;
-      });
-
-      return table;
+      return this.table;
+    },
+    findStartWord() {
+      if (this.start == '') return false
+      if (this.words.filter(word => word.name === this.start).length === 0) {
+        console.log('Word not found', this.start)
+        return false
+      } else {
+        return true
+      }
     }
   },
+  watch: {},
   methods: {
     findInGraph(word) {
-      return { tr: 1, td: 1 };
-    }
-  }
+      return {
+        tr: 1,
+        td: 1
+      };
+    },
+    getWord(id) {
+      return this.words.filter(word => word.id == id)[0];
+    },
+  },
+
 });
